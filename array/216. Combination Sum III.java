@@ -56,3 +56,35 @@ class Solution1 { // 191 ms
         }
     }
 }
+
+class Solution2 { // 1ms
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> res = new ArrayList(); 
+        
+        find(res, new ArrayList<Integer>(), 0, n, 0, k);
+        
+        return res;
+    }
+    
+    private void find(List<List<Integer>> res, List<Integer> used, int currentNum, int rest, int count, int k) {
+        if (count == k) {
+            if (rest == 0) {
+                res.add(new ArrayList<Integer>(used));
+            }
+            return;
+        }
+        
+        if (rest < 0) {
+            return;
+        }
+            
+        // recursive
+        for (int i = currentNum + 1; i <= Math.min(rest, 9); i++) { // from currentNum to 9, to prevent using duplicate numbers
+            used.add(i);
+
+            find(res, used, i, rest - i, count + 1, k);
+
+            used.remove(used.size() - 1);
+        }
+    }
+}
