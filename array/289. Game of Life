@@ -1,0 +1,50 @@
+// https://leetcode.com/problems/game-of-life/
+class Solution {
+    public void gameOfLife(int[][] board) {
+        if (board.length == 0 || board[0].length == 0) {
+            return;
+        }
+        
+        int[][] nextBoard = new int[board.length][board[0].length];
+        
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[0].length; y++) {
+                nextBoard[x][y] = nextGen(board, x, y);
+            }
+        }
+        
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[0].length; y++) {
+                board[x][y] = nextBoard[x][y];
+            }
+        }
+    }
+    
+    private static int nextGen(final int[][] board, final int x, final int y) {
+        final int sum = countNeighbors(board, x, y);
+        if (board[x][y] == 0 && sum == 3) {
+            return 1;
+        } else if (board[x][y] == 1 && (sum < 2 || sum > 3)) {
+            return 0;
+        }
+        
+        return board[x][y];
+    }
+    
+    private static int countNeighbors(final int[][] board, final int x, final int y) {
+        int sum = 0;
+        
+        sum += x - 1 >= 0 && y - 1 >= 0 ? board[x - 1][y - 1] : 0;
+        sum += x - 1 >= 0 ? board[x - 1][y] : 0;
+        sum += x - 1 >= 0 && y + 1 < board[0].length ? board[x - 1][y + 1] : 0;
+        
+        sum += y - 1 >= 0 ? board[x][y - 1] : 0;
+        sum += y + 1 < board[0].length ? board[x][y + 1] : 0;
+        
+        sum += x + 1 < board.length && y - 1 >= 0 ? board[x + 1][y - 1] : 0;
+        sum += x + 1 < board.length ? board[x + 1][y] : 0;
+        sum += x + 1 < board.length && y + 1 < board[0].length ? board[x + 1][y + 1] : 0;
+        
+        return sum;
+    }
+}
