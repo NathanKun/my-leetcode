@@ -27,3 +27,30 @@ class Solution { // 89 ms
         return res;
     }
 }
+
+class Solution { \\ 21 ms
+    public List<String> subdomainVisits(String[] cpdomains) {
+        Map<String, Integer> map = new HashMap();
+        
+        for (String s : cpdomains) {
+            String[] splited = s.split(" ");
+            int count = Integer.valueOf(splited[0]);
+            splited = splited[1].split("\\.");
+            
+            String d = splited[splited.length - 1];
+            map.put(d, map.getOrDefault(d, 0) + count);
+            
+            for (int i = splited.length - 2; i >= 0; i--) {
+                d = splited[i] + "." + d;
+                map.put(d, map.getOrDefault(d, 0) + count);
+            }
+        }
+        
+        List<String> res = new ArrayList();
+        for (Map.Entry<String, Integer> e : map.entrySet()) {
+            res.add(e.getValue() + " " + e.getKey());
+        }
+        
+        return res;
+    }
+}
