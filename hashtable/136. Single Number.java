@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/single-number/
-class Solution {
+class Solution1 { // 13 ms
     public int singleNumber(int[] nums) {
         Set<Integer> set = new HashSet();
         
@@ -12,5 +12,17 @@ class Solution {
         }
         
         return set.iterator().next();
+    }
+}
+
+class Solution2 { // 1 ms
+    public int singleNumber(int[] nums) {
+        int res = 0;
+        
+        for (int n : nums) {
+            res ^= n;
+        }
+        
+        return res;
     }
 }
