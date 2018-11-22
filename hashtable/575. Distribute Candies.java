@@ -5,7 +5,13 @@ class Solution1 { // 127 ms
     }
 }
 
-class Solution2 { // 20 ms
+class Solution2 { // 188 ms
+    public int distributeCandies(int[] candies) {        
+        return Math.min(candies.length / 2, (int) Arrays.stream(candies).distinct().count());
+    }
+}
+
+class Solution3 { // 20 ms
     public int distributeCandies(int[] candies) {        
         boolean[] set = new boolean[200001];
         int kind = 0;
