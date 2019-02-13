@@ -46,3 +46,21 @@ class Solution { // 34 ms, 39.5 MB
         return true;
     }
 }
+
+class Solution { // 18ms, 38.5 MB
+    public String longestWord(String[] words) {        
+        Arrays.sort(words);
+        
+        Set<String> set = new HashSet();
+        String res = "";
+        
+        for (String w : words) {
+            if (w.length() == 1 || set.contains(w.substring(0, w.length() - 1 ))) {
+                set.add(w);
+                res = res.length() < w.length() ? w : res;
+            }
+        }
+        
+        return res;
+    }
+}
